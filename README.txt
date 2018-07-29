@@ -13,9 +13,6 @@ Easily add Facebook event tracking using Gravity Forms and your Facebook Trackin
 
 This plugin provides an easy way to add Facebook event tracking to your Gravity Forms using Facebook's Tracking Pixel.
 
-= Setup Guide =
-Looking for help setting things up? [Read Our Setup Guide](https://mediaron.com/event-tracking-for-gravity-forms/)
-
 = Minimum Requirements =
 - Gravity Forms 2.0+
 - Facebook Ad Account
@@ -28,8 +25,6 @@ Looking for help setting things up? [Read Our Setup Guide](https://mediaron.com/
 - Dynamic event value on payment forms (integration with the payment add-ons including Paypal Standard, PayPal Pro, Stripe, etc...)
 
 For payment based forms, you can leave the value blank to convert using the total payment amount.
-
-<h3>Help Contribute</h3>
 
 == Installation ==
 
