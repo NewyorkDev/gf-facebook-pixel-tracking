@@ -1,14 +1,13 @@
 <?php
 class GFFBPT_Measurement_Protocol {
 
-	private $endpoint = 'https://www.google-analytics.com/collect'; // Measurement Protocol Endpoint
+	private $endpoint = 'https://connect.facebook.net/en_US/fbevents.js'; // Measurement Protocol Endpoint
 	private $cid = ''; // Client ID
-	private $tid = ''; // Tracking ID (UA-XXXX-YY)
-	private $v = 1; // Protocol Version
-	private $t = 'event'; //hit type
-	private $ec = ''; // event category
-	private $ea = ''; // Event action
-	private $el = ''; // Event Label
+	private $tid = ''; // Tracking ID
+	private $en = 'Lead'; //Event Name
+	private $ecc = ''; // event content category
+	private $ecn = ''; // Event content name
+	private $cur = ''; // Event Currency
 	private $ev = ''; // Event Value
 	private $dp = ''; // Document Path
 	private $dl = ''; // Document Location
@@ -18,17 +17,20 @@ class GFFBPT_Measurement_Protocol {
 	public function init() {
 		$this->cid = $this->create_client_id();
 	}
-
-	public function set_event_category( $event_category ) {
-		$this->ec = $event_category;
+	
+	public function set_event_name( $event_name ) {
+		$this->en = $event_name;
 	}
 
-	public function set_event_name( $event_name ) {
-		$this->ea = $event_name;
+	public function set_event_content_category( $event_content_category ) {
+		$this->ecc = $event_content_category;
+	}
+public function set_event_content_name( $event_content_name ) {
+		$this->ecn = $event_content_name;
 	}
 
 	public function set_event_currency( $event_currency ) {
-		$this->el = $event_currency;
+		$this->cur = $event_currency;
 	}
 
 	public function set_event_value( $event_value ) {
@@ -56,11 +58,10 @@ class GFFBPT_Measurement_Protocol {
 		// Get variables in wp_remote_post body format
 		$mp_vars = array(
 			'cid',
-			'v',
-			't',
-			'ec',
-			'ea',
-			'el',
+			'en',
+			'ecc',
+			'ecn',
+			'cur',
 			'ev',
 			'dp',
 			'dl',

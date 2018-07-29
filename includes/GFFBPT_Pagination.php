@@ -3,7 +3,7 @@ class GFFBPT_Pagination {
 	/**
 	 * Holds the class instance.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 * @access private
 	 */
 	private static $instance = null;
@@ -11,7 +11,7 @@ class GFFBPT_Pagination {
 	/**
 	 * Retrieve a class instance.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public static function get_instance() {
 		if ( null == self::$instance ) {
@@ -23,7 +23,7 @@ class GFFBPT_Pagination {
 	/**
 	 * Class constructor.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	private function __construct() {
 
@@ -32,7 +32,7 @@ class GFFBPT_Pagination {
 	/**
 	 * Send pagination events.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 *
 	 * @param array $form                The form arguments
 	 * @param int   @source_page_number  The original page number
@@ -50,7 +50,7 @@ class GFFBPT_Pagination {
 			 *
 			 * Filter the event category dynamically
 			 *
-			 * @since 2.0.0
+			 * @since 1.0.0
 			 *
 			 * @param string $category              Event Category
 			 * @param array  $form                  Gravity Form form array
@@ -64,7 +64,7 @@ class GFFBPT_Pagination {
 			 *
 			 * Filter the event action dynamically
 			 *
-			 * @since 2.0.0
+			 * @since 1.0.0
 			 *
 			 * @param string $action                Event Action
 			 * @param array  $form                  Gravity Form form array
@@ -78,13 +78,13 @@ class GFFBPT_Pagination {
 			 *
 			 * Filter the event label dynamically
 			 *
-			 * @since 2.0.0
+			 * @since 1.0.0
 			 *
 			 * @param string $label                 Event Label
 			 * @param array  $form                  Gravity Form form array
 			 * @param int    $source_page_number    Source page number
 			 * @param int    $current_page_number   Current Page Number
-			 */
+		 */
 			$event_currency = sprintf( '%s::%d::%d', esc_html( $form['title'] ), absint( $source_page_number ), absint( $current_page_number ) );
 			$event_currency = apply_filters( 'gform_pagination_event_label', $event_currency, $form, $source_page_number, $current_page_number );
 
@@ -95,28 +95,20 @@ class GFFBPT_Pagination {
 
 			?>
 			<script>
-			if ( typeof window.parent.ga == 'undefined' ) {
-				if ( typeof window.parent.__fbpTracker != 'undefined' ) {
-					window.parent.ga = window.parent.__fbpTracker;
-				}
-			}
-			if ( typeof window.parent.ga != 'undefined' ) {
-
-				// Try to get original UA code from third-party plugins or tag manager
-				var default_ua_code = null;
-				window.parent.ga(function(tracker) {
-					default_ua_code = tracker.get('trackingId');
-				});
-
-				// If UA code matches, use that tracker
-				if ( default_ua_code == '<?php echo esc_js( $fbp_code ); ?>' ) {
-					window.parent.ga( 'send', 'event', '<?php echo esc_js( $event_category ); ?>', '<?php echo esc_js( $event_name ); ?>', '<?php echo esc_js( $event_currency ); ?>' );
-				} else {
-					// UA code doesn't match, use another tracker
-					window.parent.ga( 'create', '<?php echo esc_js( $fbp_code ); ?>', 'auto', 'GTGAET_Tracker' );
-					window.parent.ga( 'GTGAET_Tracker.send', 'event', '<?php echo esc_js( $event_category );?>', '<?php echo esc_js( $event_name ); ?>', '<?php echo esc_js( $event_currency ); ?>' );
-				}
-			}
+			!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+			n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+			n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+			t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+			document,'script','https://connect.facebook.net/en_US/fbevents.js');
+			// Insert Your Facebook Pixel ID below. 
+			fbq('init', '<?php echo esc_js( $fbp_code ); ?>');
+			
+			fbq('track', 'ViewContent', {
+			  content_name: '<?php echo esc_js( $event_name ); ?>',
+			  content_category: '<?php echo esc_js( $event_category ); ?>',
+			  value: <?php echo esc_js( $event_value ); ?>,
+			  currency: '<?php echo esc_js( $event_currency ); ?>'
+			});
 			</script>
 			<?php
 			return;

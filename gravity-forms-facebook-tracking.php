@@ -2,15 +2,15 @@
 /**
  * Plugin Name:       Gravity Forms Facebook Pixel Tracking
  * Plugin URI:        https://wordpress.org/plugins/gravity-forms-facebook-pixel-tracking/
- * Description:       Add event tracking to your Gravity Forms with ease using Facebook Pixel.
- * Version:           1.0
+ * Description:       Add event tracking to your Gravity Forms with ease using Facebook Pixel Tracking.
+ * Version:           1.0.0
  * Author:            Peter Singh-Vigilante
  * Author URI:        https://hiilite.com
  * Text Domain:       gravity-forms-facebook-pixel-tracking
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
- * Developer Credit: 
+ * Developer Credit: pvigilante
  */
 
 // If this file is called directly, abort.
@@ -23,7 +23,7 @@ class GFFBPT {
 	/**
 	 * Holds the class instance.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 * @access private
 	 */
 	private static $instance = null;
@@ -31,7 +31,7 @@ class GFFBPT {
 	/**
 	 * Retrieve a class instance.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public static function get_instance() {
 		if ( null == self::$instance ) {
@@ -43,7 +43,7 @@ class GFFBPT {
 	/**
 	 * Class constructor.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	private function __construct() {
 		load_plugin_textdomain( 'gravity-forms-facebook-pixel-tracking', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -56,7 +56,7 @@ class GFFBPT {
 	/**
 	 * Check for the minimum supported PHP version.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 *
 	 * @return bool true if meets minimum version, false if not
 	 */
@@ -70,7 +70,7 @@ class GFFBPT {
 	/**
 	 * Check the plugin to make sure it meets the minimum requirements.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public static function check_plugin() {
 		if( ! GFFBPT::check_php_version() ) {
@@ -82,7 +82,7 @@ class GFFBPT {
 	/**
 	 * Retrieve the plugin basename.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 *
 	 * @return string plugin basename
 	 */
@@ -93,7 +93,7 @@ class GFFBPT {
 	/**
 	 * Return the absolute path to an asset.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 *
 	 * @param string @path Relative path to the asset.
 	 *
@@ -109,7 +109,7 @@ class GFFBPT {
 	/**
 	 * Initialize Gravity Forms related add-ons.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public function gforms_loaded() {
 		if ( ! GFFBPT::check_php_version() ) return;
@@ -123,9 +123,6 @@ class GFFBPT {
 
 		// Initialize pagination
 		add_action( 'gform_post_paging', array( $this, 'pagination'), 10, 3 );
-
-		// Initialize whether Ajax is on or off
-		//add_filter( 'gform_form_args', array( $this, 'maybe_ajax_only' ), 15, 1 );
 	}
 
 	/**
@@ -164,7 +161,7 @@ class GFFBPT {
 	/**
 	 * Initialize the pagination events.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 *
 	 * @param array $form                The form arguments
 	 * @param int   @source_page_number  The original page number

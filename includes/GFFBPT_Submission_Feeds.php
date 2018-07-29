@@ -110,7 +110,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	}
 
 	/**
-	 * Load UA Settings
+	 * Load FBP Settings
 	 *
 	 * @since 1.0.0
 	 * @return bool Returns true if UA ID is loaded, false otherwise
@@ -144,16 +144,17 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 
 		// Store everything we need for later
 		$fb_event_data = array(
-			'feed_id' => $feed['id'],
-			'entry_id' => $entry['id'],
-			'fbp_cookie' => $fbp_cookie,
-			'document_location' => $document_location,
-			'document_title' => $document_title,
-			'fbEventID' => $this->get_event_var( 'fbEventID', $feed, $entry, $form ),
-			'fbEventContentCategory' => $this->get_event_var( 'fbEventContentCategory', $feed, $entry, $form ),
-			'fbEventContentName' => $this->get_event_var( 'fbEventContentName', $feed, $entry, $form ),
-			'fbEventCurrency' => $this->get_event_var( 'fbEventCurrency', $feed, $entry, $form ),
-			'fbEventValue' => $this->get_event_var( 'fbEventValue', $feed, $entry, $form ),
+			'feed_id' 				=> $feed['id'],
+			'entry_id' 				=> $entry['id'],
+			'fbp_cookie' 			=> $fbp_cookie,
+			'document_location' 	=> $document_location,
+			'document_title' 		=> $document_title,
+			'fbEventID' 			=> $this->get_event_var( 'fbEventID', $feed, $entry, $form ),
+			'fbEventName' 			=> $this->get_event_var( 'fbEventName', $feed, $entry, $form ),
+			'fbEventContentCategory'=> $this->get_event_var( 'fbEventContentCategory', $feed, $entry, $form ),
+			'fbEventContentName' 	=> $this->get_event_var( 'fbEventContentName', $feed, $entry, $form ),
+			'fbEventCurrency' 		=> $this->get_event_var( 'fbEventCurrency', $feed, $entry, $form ),
+			'fbEventValue' 			=> $this->get_event_var( 'fbEventValue', $feed, $entry, $form ),
 		);
 
 		return $fb_event_data;
@@ -163,12 +164,16 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	 * Get our event vars
 	 */
 	private function get_event_var( $var, $feed, $entry, $form ) {
+		// TODO: Set defaults to be based on page title and form title
 
 		if ( isset( $feed['meta'][ $var ] ) && ! empty( $feed['meta'][ $var ] ) ) {
 			return $feed['meta'][ $var ];
 		}
 		else {
 			switch ( $var ) {
+				case 'fbEventName':
+					return 'Lead';
+					
 				case 'fbEventContentCategory':
 					return 'Forms';
 
@@ -191,7 +196,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	/**
 	 * Handle the form after submission before sending to the event push
 	 *
-	 * @since 1.4.0
+	 * @since 1.0.0
 	 * @param array $entry Gravity Forms entry object
 	 * @param array $form Gravity Forms form object
 	 */
@@ -203,7 +208,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 			$fb_event_data['fbEventValue'] = $this->get_event_value( $entry, $form );
 		}
 
-		$event_vars = array( 'fbEventID', 'fbEventContentCategory', 'fbEventContentName', 'fbEventCurrency', 'fbEventValue' );
+		$event_vars = array( 'fbEventID', 'fbEventName', 'fbEventContentCategory', 'fbEventContentName', 'fbEventCurrency', 'fbEventValue' );
 
 		foreach ( $event_vars as $var ) {
 			if ( $fb_event_data[ $var ] ) {
@@ -219,7 +224,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	/**
 	 * Handle the IPN response for pushing the event
 	 *
-	 * @since 1.4.0
+	 * @since 1.0.0
 	 * @param array $post_object global post array from the IPN
 	 * @param array $entry Gravity Forms entry object
 	 */
@@ -243,7 +248,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	/**
 	 * Push the Facebook Pixel Event!
 	 *
-	 * @since 1.4.0
+	 * @since 1.0.0
 	 * @param array $event Gravity Forms event object
 	 * @param array $form Gravity Forms form object
 	 */
@@ -255,11 +260,11 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 		/**
 		* Filter: gform_fbp_ids
 		*
-		* Filter all outgoing UA IDs to send events to
+		* Filter all outgoing FBP IDs to send events to
 		*
-		* @since 1.6.5
+		* @since 1.0.0
 		*
-		* @param array  $facebook_pixels UA codes
+		* @param array  $facebook_pixels IDs codes
 		* @param object $form Gravity Form form object
 		* @param object $entry Gravity Form Entry Object
 		*/
@@ -279,39 +284,53 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 
 		// Set our event object variables
 		/**
-		 * Filter: gform_event_category
-		 *
-		 * Filter the event category dynamically
-		 *
-		 * @since 1.6.5
-		 *
-		 * @param string $category Event Category
-		 * @param object $form     Gravity Form form object
-		 * @param object $entry    Gravity Form Entry Object
-		 */
-		$event_category = apply_filters( 'gform_event_category', $fb_event_data['fbEventContentCategory'], $form, $entry );
-		$event->set_event_category( $event_category );
-
-		/**
 		 * Filter: gform_event_name
 		 *
-		 * Filter the event action dynamically
+		 * Filter the event name dynamically
 		 *
-		 * @since 1.6.5
+		 * @since 1.0.0
 		 *
-		 * @param string $action Event Action
+		 * @param string $action Event Name
 		 * @param object $form   Gravity Form form object
 		 * @param object $entry  Gravity Form Entry Object
 		 */
-		$event_name = apply_filters( 'gform_event_name', $fb_event_data['fbEventContentName'], $form, $entry );
+		$event_name = apply_filters( 'gform_event_name', $fb_event_data['fbEventName'], $form, $entry );
 		$event->set_event_name( $event_name );
+		
+		/**
+		 * Filter: gform_event_content_category
+		 *
+		 * Filter the event content category dynamically
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $category Event Content Category
+		 * @param object $form     Gravity Form form object
+		 * @param object $entry    Gravity Form Entry Object
+		 */
+		$event_content_category = apply_filters( 'gform_event_content_category', $fb_event_data['fbEventContentCategory'], $form, $entry );
+		$event->set_event_content_category( $event_content_category );
+
+		/**
+		 * Filter: gform_event_content_name
+		 *
+		 * Filter the event content_name dynamically
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $action Event Content Name
+		 * @param object $form   Gravity Form form object
+		 * @param object $entry  Gravity Form Entry Object
+		 */
+		$event_content_name = apply_filters( 'gform_event_content_name', $fb_event_data['fbEventContentName'], $form, $entry );
+		$event->set_event_content_name( $event_content_name );
 
 		/**
 		 * Filter: gform_event_currency
 		 *
 		 * Filter the event label dynamically
 		 *
-		 * @since 1.6.5
+		 * @since 1.0.0
 		 *
 		 * @param string $label Event Label
 		 * @param object $form  Gravity Form form object
@@ -325,7 +344,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 		 *
 		 * Filter the event value dynamically
 		 *
-		 * @since 1.6.5
+		 * @since 1.0.0
 		 *
 		 * @param object $form Gravity Form form object
 		 * @param object $entry Gravity Form Entry Object
@@ -354,10 +373,10 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 			// Insert Your Facebook Pixel ID below. 
 			fbq('init', '<?php echo esc_js( $fbp_code ); ?>');
 			
-			fbq('track', 'Lead', {
-			  content_name: '<?php echo esc_js( $event_name ); ?>',
-			  content_category: '<?php echo esc_js( $event_category ); ?>',
-			  value: <?php echo esc_js( $event_value ); ?>,
+			fbq('track', '<?php echo esc_js( $event_name ); ?>', {
+			  content_name: '<?php echo esc_js( $event_content_name ); ?>',
+			  content_category: '<?php echo esc_js( $event_content_category ); ?>',
+			  value: '<?php echo esc_js( $event_value ); ?>',
 			  currency: '<?php echo esc_js( $event_currency ); ?>'
 			});
 
@@ -381,7 +400,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	/**
 	 * Get the event value for payment entries
 	 *
-	 * @since 1.4.0
+	 * @since 1.0.0
 	 * @param array $event Gravity Forms event object
 	 * @return string/boolean Event value or false if not a payment form
 	 */
@@ -400,7 +419,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	/**
 	 * Form settings page title
 	 *
-	 * @since 1.5.0
+	 * @since 1.0.0
 	 * @return string Form Settings Title
 	 */
 	public function feed_settings_title() {
@@ -431,8 +450,8 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 		$result   = false;
 
 		//Check for a valid Pixel code
-		$feed_ua_code = isset( $settings[ 'fbEventID' ] ) ? $settings[ 'fbEventID' ] : '';
-		$fbp_codes = $this->get_fbp_codes( $feed_ua_code, $this->get_fbp_id() );
+		$feed_fbp_code = isset( $settings[ 'fbEventID' ] ) ? $settings[ 'fbEventID' ] : '';
+		$fbp_codes = $this->get_fbp_codes( $feed_fbp_code, $this->get_fbp_id() );
 
 		if ( $is_valid ) {
 			$settings = $this->filter_settings( $sections, $settings );
@@ -450,10 +469,10 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	}
 
 	/**
-	 * Return Google Analytics GA Codes
+	 * Return Facebook Pixel Codes
 	 *
-	 * @since 1.7.0
-	 * @return array Array of GA codes
+	 * @since 1.0.0
+	 * @return array Array of FBP codes
 	 */
 	private function get_fbp_codes( $feed_ua, $settings_fb ) {
 		$facebook_pixels = array();
@@ -476,11 +495,11 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	/**
 	 * Form settings fields
 	 *
-	 * @since 1.5.0
+	 * @since 1.0.0
 	 * @return array Array of form settings
 	 */
 	public function feed_settings_fields() {
-    	$ga_id_placeholder = $this->get_fbp_id();
+    	$fb_id_placeholder = $this->get_fbp_id();
 		return array(
 			array(
 				"title"  => __( 'Feed Settings', 'gravity-forms-facebook-pixel-tracking' ),
@@ -509,28 +528,36 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 						"name"    => "fbEventID",
 						"class"   => "medium",
 						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Google Analytics UA Code (Optional)', 'gravity-forms-facebook-pixel-tracking' ), __( 'Leave empty to use global GA Code. You can enter multiple UA codes as long as they are comma separated.', 'gravity-forms-facebook-pixel-tracking' ) ),
-						"placeholder" => $ga_id_placeholder,
+						"placeholder" => $fb_id_placeholder,
 					),
 					array(
-						"label"   => __( 'Content Category', 'gravity-forms-facebook-pixel-tracking' ),
+						"label"   => __( 'Event Name', 'gravity-forms-facebook-pixel-tracking' ),
 						"type"    => "text",
-						"name"    => "fbEventContentCategory",
+						"name"    => "fbEventName",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Category', 'gravity-forms-facebook-pixel-tracking' ), __( 'Enter your Google Analytics event category', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Name', 'gravity-forms-facebook-pixel-tracking' ), __( 'To report a standard event, use one of the 9 standard events in the fbq track call ( ViewContent, Search, AddToCart, AddToWishlist, InitiateCheckout, AddPaymentInfo, Purchase, Lead, CompleteRegistration ).', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"placeholder" => __( 'Lead', 'gravity-forms-facebook-pixel-tracking' ),
 					),
 					array(
 						"label"   => __( 'Content Name', 'gravity-forms-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventContentName",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Action', 'gravity-forms-facebook-pixel-tracking' ), __( 'Enter your Google Analytics event action', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Content Name', 'gravity-forms-facebook-pixel-tracking' ), __( 'Name of the page/product', 'gravity-forms-facebook-pixel-tracking' ) ),
+					),
+					array(
+						"label"   => __( 'Content Category', 'gravity-forms-facebook-pixel-tracking' ),
+						"type"    => "text",
+						"name"    => "fbEventContentCategory",
+						"class"   => "medium merge-tag-support mt-position-right",
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Content Category', 'gravity-forms-facebook-pixel-tracking' ), __( 'Category of the page/product', 'gravity-forms-facebook-pixel-tracking' ) ),
 					),
 					array(
 						"label"   => __( 'Currency', 'gravity-forms-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventCurrency",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Label', 'gravity-forms-facebook-pixel-tracking' ), __( 'Enter your Google Analytics event label', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Currency', 'gravity-forms-facebook-pixel-tracking' ), __( 'Currency for the value specified', 'gravity-forms-facebook-pixel-tracking' ) ),
 						"placeholder" => 'CAD',
 					),
 					array(
@@ -538,7 +565,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 						"type"    => "text",
 						"name"    => "fbEventValue",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Value', 'gravity-forms-facebook-pixel-tracking' ), __( 'Enter your Google Analytics event value. Leave blank to omit pushing a value to Google Analytics. Or to use the purchase value of a payment based form. <strong>Note:</strong> This must be a number (int/float).', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Value', 'gravity-forms-facebook-pixel-tracking' ), __( 'Value of a user performing this event to the business', 'gravity-forms-facebook-pixel-tracking' ) ),
 					),
 				)
 			),
@@ -559,14 +586,16 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	/**
 	 * Instruction field
 	 *
-	 * @since 1.5.0
+	 * @since 1.0.0
 	 */
 	public function single_setting_row_instruction_field(){
+		// TODO: Show new dynamic defaults
 		echo '
 			<tr>
 				<th colspan="2">
 					<p>' . __( "If you leave these blank, the following defaults will be used when the event is tracked", 'gravity-forms-facebook-pixel-tracking' ) . ':</p>
 					<p>
+						<strong>' . __( "Event Name", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> Lead<br>
 						<strong>' . __( "Content Category", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> Forms<br>
 						<strong>' . __( "Content Name", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> Submission<br>
 						<strong>' . __( "Currency", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> CAD<br>
@@ -581,12 +610,13 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	 * @return array columns
 	 */
 	public function feed_list_columns() {
+		// TODO: Add Event type
 		return array(
-			'feedName'        => __( 'Name', 'gravity-forms-facebook-pixel-tracking' ),
-			'fbEventContentCategory' => __( 'Content Category', 'gravity-forms-facebook-pixel-tracking' ),
-			'fbEventContentName'   => __( 'Content Name', 'gravity-forms-facebook-pixel-tracking' ),
-			'fbEventCurrency'    => __( 'Currency', 'gravity-forms-facebook-pixel-tracking' ),
-			'fbEventValue'    => __( 'Value', 'gravity-forms-facebook-pixel-tracking' ),
+			'feedName'        		=> __( 'Name', 'gravity-forms-facebook-pixel-tracking' ),
+			'fbEventName' 			=> __( 'Event Name', 'gravity-forms-facebook-pixel-tracking' ),
+//			'fbEventContentType'	=> __( 'Content Type', 'gravity-forms-facebook-pixel-tracking' ),
+			'fbEventContentCategory'=> __( 'Content Category', 'gravity-forms-facebook-pixel-tracking' ),
+			'fbEventContentName'   	=> __( 'Content Name', 'gravity-forms-facebook-pixel-tracking' ),
 		);
 	}
 

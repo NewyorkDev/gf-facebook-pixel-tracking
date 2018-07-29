@@ -1,7 +1,7 @@
 <?php
 GFForms::include_addon_framework();
 class GFFBPT_FBP extends GFAddOn {
-	protected $_version = '2.0';
+	protected $_version = '1.0.0';
 	protected $_min_gravityforms_version = '1.8.20';
 	protected $_slug = 'GFFBPT_FBP';
 	protected $_path = 'gravity-forms-facebook-pixel-tracking/gravity-forms-facebook-tracking.php';
@@ -33,7 +33,7 @@ class GFFBPT_FBP extends GFAddOn {
 	public function init() {
 		parent::init();
 
-		// Migrate old GA Code over to new add-on
+		// Migrate old FBP Code over to new add-on
 		$fbp_options = get_option( 'gravityformsaddon_GFFBPT_FBP_settings', false );
 		if ( ! $fbp_options ) {
 			$old_fpb_option = get_option( 'gravityformsaddon_gravity-forms-pixel-tracking_settings', false );
@@ -61,7 +61,6 @@ class GFFBPT_FBP extends GFAddOn {
 						'label'             => __( 'Facebook Pixel ID', 'gravity-forms-facebook-pixel-tracking' ),
 						'type'              => 'text',
 						'class'             => 'small',
-
 					),
 				),
 			),
