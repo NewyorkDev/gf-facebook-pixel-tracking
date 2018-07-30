@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:       Gravity Forms Facebook Pixel Tracking
- * Plugin URI:        https://wordpress.org/plugins/gravity-forms-facebook-pixel-tracking/
+ * Plugin URI:        https://wordpress.org/plugins/gf-facebook-pixel-tracking/
  * Description:       Add event tracking to your Gravity Forms with ease using Facebook Pixel Tracking.
  * Version:           1.0.0
  * Author:            Peter Singh-Vigilante
  * Author URI:        https://hiilite.com
- * Text Domain:       gravity-forms-facebook-pixel-tracking
+ * Text Domain:       gf-facebook-pixel-tracking
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
@@ -46,7 +46,7 @@ class GFFBPT {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		load_plugin_textdomain( 'gravity-forms-facebook-pixel-tracking', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'gf-facebook-pixel-tracking', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		spl_autoload_register( array( $this, 'loader' ) );
 
@@ -75,7 +75,7 @@ class GFFBPT {
 	public static function check_plugin() {
 		if( ! GFFBPT::check_php_version() ) {
 			deactivate_plugins( GFFBPT::get_plugin_basename() );
-			exit( sprintf( esc_html__( 'Gravity Forms Facebook Pixel Tracking requires PHP version 5.3 and up. You are currently running PHP version %s.', 'gravity-forms-facebook-pixel-tracking' ), esc_html( PHP_VERSION ) ) );
+			exit( sprintf( esc_html__( 'Gravity Forms Facebook Pixel Tracking requires PHP version 5.3 and up. You are currently running PHP version %s.', 'gf-facebook-pixel-tracking' ), esc_html( PHP_VERSION ) ) );
 		}
 	}
 

@@ -16,7 +16,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	protected $_version = "1.0.0";
 	protected $_min_gravityforms_version = "1.8.20";
 	protected $_slug = "gravity-forms-pixel-tracking";
-	protected $_path = "gravity-forms-facebook-pixel-tracking/gravity-forms-pixel-tracking.php";
+	protected $_path = "gf-facebook-pixel-tracking/gravity-forms-pixel-tracking.php";
 	protected $_full_path = __FILE__;
 	protected $_title = "Gravity Forms Facebook Pixel Tracking";
 	protected $_short_title = "FB Pixel Tracking";
@@ -423,7 +423,7 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	 * @return string Form Settings Title
 	 */
 	public function feed_settings_title() {
-		return __( 'Submission Tracking Settings', 'gravity-forms-facebook-pixel-tracking' );
+		return __( 'Submission Tracking Settings', 'gf-facebook-pixel-tracking' );
 	}
 
 	public function maybe_save_feed_settings( $feed_id, $form_id ) {
@@ -502,20 +502,20 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
     	$fb_id_placeholder = $this->get_fbp_id();
 		return array(
 			array(
-				"title"  => __( 'Feed Settings', 'gravity-forms-facebook-pixel-tracking' ),
+				"title"  => __( 'Feed Settings', 'gf-facebook-pixel-tracking' ),
 				"fields" => array(
 					array(
-						'label'    => __( 'Feed Name', 'gravity-forms-facebook-pixel-tracking' ),
+						'label'    => __( 'Feed Name', 'gf-facebook-pixel-tracking' ),
 						'type'     => 'text',
 						'name'     => 'feedName',
 						'class'    => 'medium',
 						'required' => true,
-						'tooltip'  => '<h6>' . __( 'Feed Name', 'gravity-forms-facebook-pixel-tracking' ) . '</h6>' . __( 'Enter a feed name to uniquely identify this setup.', 'gravity-forms-facebook-pixel-tracking' )
+						'tooltip'  => '<h6>' . __( 'Feed Name', 'gf-facebook-pixel-tracking' ) . '</h6>' . __( 'Enter a feed name to uniquely identify this setup.', 'gf-facebook-pixel-tracking' )
 					)
 				),
 			),
 			array(
-				"title"  => __( 'Pixel Tracking Settings', 'gravity-forms-facebook-pixel-tracking' ),
+				"title"  => __( 'Pixel Tracking Settings', 'gf-facebook-pixel-tracking' ),
 				"fields" => array(
 					array(
 						"label"   => "",
@@ -523,60 +523,60 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 						"name"    => "instructions"
 					),
 					array(
-						"label"   => __( 'Event Pixel ID', 'gravity-forms-facebook-pixel-tracking' ),
+						"label"   => __( 'Event Pixel ID', 'gf-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventID",
 						"class"   => "medium",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Google Analytics UA Code (Optional)', 'gravity-forms-facebook-pixel-tracking' ), __( 'Leave empty to use global GA Code. You can enter multiple UA codes as long as they are comma separated.', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Google Analytics UA Code (Optional)', 'gf-facebook-pixel-tracking' ), __( 'Leave empty to use global GA Code. You can enter multiple UA codes as long as they are comma separated.', 'gf-facebook-pixel-tracking' ) ),
 						"placeholder" => $fb_id_placeholder,
 					),
 					array(
-						"label"   => __( 'Event Name', 'gravity-forms-facebook-pixel-tracking' ),
+						"label"   => __( 'Event Name', 'gf-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventName",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Name', 'gravity-forms-facebook-pixel-tracking' ), __( 'To report a standard event, use one of the 9 standard events in the fbq track call ( ViewContent, Search, AddToCart, AddToWishlist, InitiateCheckout, AddPaymentInfo, Purchase, Lead, CompleteRegistration ).', 'gravity-forms-facebook-pixel-tracking' ) ),
-						"placeholder" => __( 'Lead', 'gravity-forms-facebook-pixel-tracking' ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Name', 'gf-facebook-pixel-tracking' ), __( 'To report a standard event, use one of the 9 standard events in the fbq track call ( ViewContent, Search, AddToCart, AddToWishlist, InitiateCheckout, AddPaymentInfo, Purchase, Lead, CompleteRegistration ).', 'gf-facebook-pixel-tracking' ) ),
+						"placeholder" => __( 'Lead', 'gf-facebook-pixel-tracking' ),
 					),
 					array(
-						"label"   => __( 'Content Name', 'gravity-forms-facebook-pixel-tracking' ),
+						"label"   => __( 'Content Name', 'gf-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventContentName",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Content Name', 'gravity-forms-facebook-pixel-tracking' ), __( 'Name of the page/product', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Content Name', 'gf-facebook-pixel-tracking' ), __( 'Name of the page/product', 'gf-facebook-pixel-tracking' ) ),
 					),
 					array(
-						"label"   => __( 'Content Category', 'gravity-forms-facebook-pixel-tracking' ),
+						"label"   => __( 'Content Category', 'gf-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventContentCategory",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Content Category', 'gravity-forms-facebook-pixel-tracking' ), __( 'Category of the page/product', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Content Category', 'gf-facebook-pixel-tracking' ), __( 'Category of the page/product', 'gf-facebook-pixel-tracking' ) ),
 					),
 					array(
-						"label"   => __( 'Currency', 'gravity-forms-facebook-pixel-tracking' ),
+						"label"   => __( 'Currency', 'gf-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventCurrency",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Currency', 'gravity-forms-facebook-pixel-tracking' ), __( 'Currency for the value specified', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Currency', 'gf-facebook-pixel-tracking' ), __( 'Currency for the value specified', 'gf-facebook-pixel-tracking' ) ),
 						"placeholder" => 'CAD',
 					),
 					array(
-						"label"   => __( 'Value', 'gravity-forms-facebook-pixel-tracking' ),
+						"label"   => __( 'Value', 'gf-facebook-pixel-tracking' ),
 						"type"    => "text",
 						"name"    => "fbEventValue",
 						"class"   => "medium merge-tag-support mt-position-right",
-						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Value', 'gravity-forms-facebook-pixel-tracking' ), __( 'Value of a user performing this event to the business', 'gravity-forms-facebook-pixel-tracking' ) ),
+						"tooltip" => sprintf( '<h6>%s</h6>%s', __( 'Event Value', 'gf-facebook-pixel-tracking' ), __( 'Value of a user performing this event to the business', 'gf-facebook-pixel-tracking' ) ),
 					),
 				)
 			),
 			array(
-				"title"  => __( 'Other Settings', 'gravity-forms-facebook-pixel-tracking' ),
+				"title"  => __( 'Other Settings', 'gf-facebook-pixel-tracking' ),
 				"fields" => array(
 					array(
 						'name'    => 'conditionalLogic',
-						'label'   => __( 'Conditional Logic', 'gravity-forms-facebook-pixel-tracking' ),
+						'label'   => __( 'Conditional Logic', 'gf-facebook-pixel-tracking' ),
 						'type'    => 'feed_condition',
-						'tooltip' => '<h6>' . __( 'Conditional Logic', 'gravity-forms-facebook-pixel-tracking' ) . '</h6>' . __( 'When conditions are enabled, events will only be sent to google when the conditions are met. When disabled, all form submissions will trigger an event.', 'gravity-forms-facebook-pixel-tracking' )
+						'tooltip' => '<h6>' . __( 'Conditional Logic', 'gf-facebook-pixel-tracking' ) . '</h6>' . __( 'When conditions are enabled, events will only be sent to google when the conditions are met. When disabled, all form submissions will trigger an event.', 'gf-facebook-pixel-tracking' )
 					)
 				)
 			),
@@ -593,13 +593,13 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 		echo '
 			<tr>
 				<th colspan="2">
-					<p>' . __( "If you leave these blank, the following defaults will be used when the event is tracked", 'gravity-forms-facebook-pixel-tracking' ) . ':</p>
+					<p>' . __( "If you leave these blank, the following defaults will be used when the event is tracked", 'gf-facebook-pixel-tracking' ) . ':</p>
 					<p>
-						<strong>' . __( "Event Name", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> Lead<br>
-						<strong>' . __( "Content Category", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> Forms<br>
-						<strong>' . __( "Content Name", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> Submission<br>
-						<strong>' . __( "Currency", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> CAD<br>
-						<strong>' . __( "Value", 'gravity-forms-facebook-pixel-tracking' ) . ':</strong> Payment Amount (on payment forms only, otherwise nothing is sent by default)
+						<strong>' . __( "Event Name", 'gf-facebook-pixel-tracking' ) . ':</strong> Lead<br>
+						<strong>' . __( "Content Category", 'gf-facebook-pixel-tracking' ) . ':</strong> Forms<br>
+						<strong>' . __( "Content Name", 'gf-facebook-pixel-tracking' ) . ':</strong> Submission<br>
+						<strong>' . __( "Currency", 'gf-facebook-pixel-tracking' ) . ':</strong> CAD<br>
+						<strong>' . __( "Value", 'gf-facebook-pixel-tracking' ) . ':</strong> Payment Amount (on payment forms only, otherwise nothing is sent by default)
 					</p>
 				</td>
 			</tr>';
@@ -612,11 +612,11 @@ class GFFBPT_Submission_Feeds extends GFFeedAddOn {
 	public function feed_list_columns() {
 		// TODO: Add Event type
 		return array(
-			'feedName'        		=> __( 'Name', 'gravity-forms-facebook-pixel-tracking' ),
-			'fbEventName' 			=> __( 'Event Name', 'gravity-forms-facebook-pixel-tracking' ),
-//			'fbEventContentType'	=> __( 'Content Type', 'gravity-forms-facebook-pixel-tracking' ),
-			'fbEventContentCategory'=> __( 'Content Category', 'gravity-forms-facebook-pixel-tracking' ),
-			'fbEventContentName'   	=> __( 'Content Name', 'gravity-forms-facebook-pixel-tracking' ),
+			'feedName'        		=> __( 'Name', 'gf-facebook-pixel-tracking' ),
+			'fbEventName' 			=> __( 'Event Name', 'gf-facebook-pixel-tracking' ),
+//			'fbEventContentType'	=> __( 'Content Type', 'gf-facebook-pixel-tracking' ),
+			'fbEventContentCategory'=> __( 'Content Category', 'gf-facebook-pixel-tracking' ),
+			'fbEventContentName'   	=> __( 'Content Name', 'gf-facebook-pixel-tracking' ),
 		);
 	}
 

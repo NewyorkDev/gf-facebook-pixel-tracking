@@ -34,7 +34,7 @@ For payment based forms, you can leave the value blank to convert using the tota
 = Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for gravity-forms-facebook-pixel-tracking
+2. Search for gf-facebook-pixel-tracking
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
 
@@ -42,15 +42,15 @@ For payment based forms, you can leave the value blank to convert using the tota
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Navigate to the 'Upload' area
-3. Select `gravity-forms-facebook-pixel-tracking.zip` from your computer
+3. Select `gf-facebook-pixel-tracking.zip` from your computer
 4. Click 'Install Now'
 5. Activate the plugin in the Plugin dashboard
 
 = Using FTP =
 
-1. Download `gravity-forms-facebook-pixel-tracking.zip`
-2. Extract the `gravity-forms-facebook-pixel-tracking` directory to your computer
-3. Upload the `gravity-forms-facebook-pixel-tracking` directory to the `/wp-content/plugins/` directory
+1. Download `gf-facebook-pixel-tracking.zip`
+2. Extract the `gf-facebook-pixel-tracking` directory to your computer
+3. Upload the `gf-facebook-pixel-tracking` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
 
 == Screenshots ==
