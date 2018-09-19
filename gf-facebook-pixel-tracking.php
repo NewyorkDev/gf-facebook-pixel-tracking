@@ -2,9 +2,9 @@
 /**
  * Plugin Name:       Gravity Forms Facebook Pixel Tracking
  * Plugin URI:        https://wordpress.org/plugins/gf-facebook-pixel-tracking/
- * Description:       Add event tracking to your Gravity Forms with ease using Facebook Pixel Tracking.
+ * Description:       This plugin provides an easy way to add Facebook event tracking to your Gravity Forms using Facebook’s Tracking Pixel.
  * Version:           1.0.0
- * Author:            Peter Singh-Vigilante
+ * Author:            Hiilite
  * Author URI:        https://hiilite.com
  * Text Domain:       gf-facebook-pixel-tracking
  * License:           GPL-2.0+

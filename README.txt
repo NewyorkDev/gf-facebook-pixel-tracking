@@ -1,5 +1,5 @@
 === Facebook Tracking Pixel for Gravity Forms ===
-Contributors: pvigilante
+Contributors: pvigilante, hiilite
 Tags: gravity forms, facebook, facebook pixel, event tracking
 Requires at least:4.0
 Tested up to: 4.9
@@ -8,7 +8,8 @@ Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily add Facebook event tracking using Gravity Forms and your Facebook Tracking Pixel.
+This plugin provides an easy way to add Facebook event tracking to your Gravity Forms using Facebook’s Tracking Pixel. This flexible plugin works for those who possess Gravity Forms 2.0+ and a Facebook Ad Account. With this plugin you will be able to submit events to Facebook Ads Manager, add multiple event feeds with conditionals, track pagination events and integrate seamlessly to include dynamic event values on payment forms with common payment platforms such as Paypal Standard, PayPal Pro, Stripe and more. Further customization features include event categories, content names, labels and even values.
+
 == Description ==
 
 This plugin provides an easy way to add Facebook event tracking to your Gravity Forms using Facebook's Tracking Pixel.
