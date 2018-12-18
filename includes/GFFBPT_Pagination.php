@@ -88,7 +88,7 @@ class GFFBPT_Pagination {
 			$event_currency = sprintf( '%s::%d::%d', esc_html( $form['title'] ), absint( $source_page_number ), absint( $current_page_number ) );
 			$event_currency = apply_filters( 'gform_pagination_event_label', $event_currency, $form, $source_page_number, $current_page_number );
 
-			$event->set_event_category( $event_category );
+			$event->set_event_content_category( $event_category );
 			$event->set_event_name( $event_name );
 			$event->set_event_currency( $event_currency );
 
